@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ArtifactMythsApplication<artifact_myths>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.myths.artifact_myths.ArtifactMythsApplication",
+            "projectName": "artifact_myths",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
