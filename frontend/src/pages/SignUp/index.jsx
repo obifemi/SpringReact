@@ -1,12 +1,15 @@
 import React from 'react';
 
 const SignUp = () => {
+    const userNameChangeHandler = (event) => {
+        console.log(event);
+    }
     return (
         <div>
             <h1>SignUp</h1>
             <div>
-            <label htmlFor="username">Username</label>
-            <input id='username'/>
+            <label htmlFor="username" >Username</label>
+            <input onChange={userNameChangeHandler} id='username'/>
             </div>
             
             <div>
