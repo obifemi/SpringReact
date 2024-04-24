@@ -1,33 +1,59 @@
 import React from 'react';
+import { useState } from 'react'
+
+
+
 
 const SignUp = () => {
-    const userNameChangeHandler = (event) => {
-        console.log(event);
+
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    // const button = document.getElementById('button')
+    // button.setAttribute('disabled', '')
+
+    const passwordCheckHandler = (event) => {
+        console.log(event.target.value);
+
+       
+
+        
+        if(password === confirmPassword){
+            console.log('passwords match');
+            document.getElementById('button').removeAttribute('disabled', '');
+        }
+        else{
+            console.log('passwords do not match');
+            document.getElementById('button').setAttribute('disabled', '');
+        }
     }
+  
+
+ 
     return (
         <div>
             <h1>SignUp</h1>
             <div>
             <label htmlFor="username" >Username</label>
-            <input onChange={userNameChangeHandler} id='username'/>
+            <input   id='username'/>
             </div>
             
             <div>
             <label htmlFor="email">E-Mail</label>
-            <input id='email'/>
+            <input  id='email'/>
             </div>
 
             <div>
             <label htmlFor="password">Password</label>
-            <input id='password'/>
+            <input onChange={(e) => setPassword(e.target.value)} id='password'/>
             </div>
 
             <div>
             <label htmlFor="confirmPassword">Confirm Password</label>
-            <input id='confirmPassword'/>
+            <input onChange={(e) => setConfirmPassword(e.target.value)} id='confirmPassword'/>
             </div>
 
-            <button>Sign Up</button>
+            <button disabled={!password || (password!==confirmPassword)} id='button'>Sign Up</button>
             
            
 
