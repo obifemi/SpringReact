@@ -32,7 +32,7 @@ const SignUp = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8082/api/v1/user', {
+        axios.post('/api/v1/user', {
             username, email, password
         })
     }
