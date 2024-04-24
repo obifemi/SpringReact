@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react'
-
+import axios from 'axios';
 
 
 
@@ -8,6 +8,8 @@ const SignUp = () => {
 
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
 
     // const button = document.getElementById('button')
     // button.setAttribute('disabled', '')
@@ -27,20 +29,28 @@ const SignUp = () => {
             document.getElementById('button').setAttribute('disabled', '');
         }
     }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        axios.post('http://localhost:8082/api/v1/user', {
+            username, email, password
+        })
+    }
+
   
 
  
     return (
-        <div>
+        <form onSubmit={onSubmit}>
             <h1>SignUp</h1>
             <div>
             <label htmlFor="username" >Username</label>
-            <input   id='username'/>
+            <input onChange={(e) => setUsername(e.target.value)}   id='username'/>
             </div>
             
             <div>
             <label htmlFor="email">E-Mail</label>
-            <input  id='email'/>
+            <input onChange={(e) => setEmail(e.target.value)}  id='email'/>
             </div>
 
             <div>
@@ -53,11 +63,11 @@ const SignUp = () => {
             <input onChange={(e) => setConfirmPassword(e.target.value)} id='confirmPassword'/>
             </div>
 
-            <button disabled={!password || (password!==confirmPassword)} id='button'>Sign Up</button>
+            <button onClick={onSubmit} disabled={!password || (password!==confirmPassword)} id='button'>Sign Up</button>
             
            
 
-        </div>
+        </form>
     );
 };
 
