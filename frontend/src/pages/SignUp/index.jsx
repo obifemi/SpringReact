@@ -10,64 +10,61 @@ const SignUp = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
+    const [apiProcess, setApiProcess] = useState(false);
 
-    // const button = document.getElementById('button')
-    // button.setAttribute('disabled', '')
 
-    const passwordCheckHandler = (event) => {
-        console.log(event.target.value);
-
-       
-
-        
-        if(password === confirmPassword){
-            console.log('passwords match');
-            document.getElementById('button').removeAttribute('disabled', '');
-        }
-        else{
-            console.log('passwords do not match');
-            document.getElementById('button').setAttribute('disabled', '');
-        }
-    }
 
     const onSubmit = (e) => {
+        setApiProcess(true);
         e.preventDefault();
         axios.post('/api/v1/user', {
             username, email, password
-        })
+        }).then((res) => {
+            console.log(res);
+            setApiProcess(false);
+        }).catch((err) => {
+            console.log(err);
+            setApiProcess(true);
+        });
     }
 
-  
 
- 
+
+
     return (
-        <form onSubmit={onSubmit}>
-            <h1>SignUp</h1>
-            <div>
-            <label htmlFor="username" >Username</label>
-            <input onChange={(e) => setUsername(e.target.value)}   id='username'/>
-            </div>
-            
-            <div>
-            <label htmlFor="email">E-Mail</label>
-            <input onChange={(e) => setEmail(e.target.value)}  id='email'/>
-            </div>
+        <div className='container offset-lg-3 col-lg-6'>
 
-            <div>
-            <label htmlFor="password">Password</label>
-            <input onChange={(e) => setPassword(e.target.value)} id='password'/>
-            </div>
+            <form onSubmit={onSubmit}>
 
-            <div>
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input onChange={(e) => setConfirmPassword(e.target.value)} id='confirmPassword'/>
-            </div>
+                <h1 className='text-center'>SignUp</h1>
 
-            <button onClick={onSubmit} disabled={!password || (password!==confirmPassword)} id='button'>Sign Up</button>
-            
-           
+                <div>
+                    <label className='form-label' htmlFor="username" >Username</label>
+                    <input className='form-control' onChange={(e) => setUsername(e.target.value)} id='username' />
+                </div>
 
-        </form>
+                <div>
+                    <label className='form-label' htmlFor="email">E-Mail</label>
+                    <input className='form-control' onChange={(e) => setEmail(e.target.value)} id='email' />
+                </div>
+
+                <div>
+                    <label className='form-label' htmlFor="password">Password</label>
+                    <input className='form-control' onChange={(e) => setPassword(e.target.value)} id='password' />
+                </div>
+
+                <div>
+                    <label className='form-label' htmlFor="confirmPassword">Confirm Password</label>
+                    <input className='form-control' onChange={(e) => setConfirmPassword(e.target.value)} id='confirmPassword' />
+                </div>
+
+                <button className='btn btn-primary mt-1' onClick={onSubmit} disabled={apiProcess || (!password || (password !== confirmPassword))} id='button'>Sign Up</button>
+
+
+
+            </form>
+
+        </div>
     );
 };
 
