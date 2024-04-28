@@ -19,7 +19,7 @@ UserService userService;
     @PostMapping("api/v1/user")
      GenericMessage createUser(@RequestBody User user) {
         userService.createUser(user);
-        return new GenericMessage("User created successfully");
+        return new GenericMessage("User is created successfully");
     }
     
 }
