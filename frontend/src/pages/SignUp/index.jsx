@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react'
 import axios from 'axios';
-
+import {signUp} from './api'
 
 
 const SignUp = () => {
@@ -18,15 +18,14 @@ const SignUp = () => {
         setResponse(false)
         setApiProcess(true);
         e.preventDefault();
-        axios.post('/api/v1/user', {
-            username, email, password
-        }).then((res) => {
+        signUp({username, email, password})
+        .then((res) => {
             
             setApiProcess(false);
             setResponse(res.data.message);
-            console.log("response: " + response);
+            console.log("response: " + res.data.message);
         }).catch((err) => {
-            console.log(err);
+            console.log('Error: ' +err);
             setApiProcess(true);
         });
     }
