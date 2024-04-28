@@ -11,17 +11,20 @@ const SignUp = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [apiProcess, setApiProcess] = useState(false);
-
+    const [response, setResponse] = useState(false);
 
 
     const onSubmit = (e) => {
+        setResponse(false)
         setApiProcess(true);
         e.preventDefault();
         axios.post('/api/v1/user', {
             username, email, password
         }).then((res) => {
-            console.log(res);
+            
             setApiProcess(false);
+            setResponse(res.data.message);
+            console.log("response: " + response);
         }).catch((err) => {
             console.log(err);
             setApiProcess(true);
@@ -59,7 +62,7 @@ const SignUp = () => {
                 </div>
 
                 <button className='btn btn-primary mt-1' onClick={onSubmit} disabled={apiProcess || (!password || (password !== confirmPassword))} id='button'>Sign Up</button>
-
+                <div  className={response ? 'alert alert-success mt-2' : 'd-none'}>{response}</div>
 
 
             </form>
