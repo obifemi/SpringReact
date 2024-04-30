@@ -39,7 +39,7 @@ const SignUp = () => {
 
             <form onSubmit={onSubmit}>
 
-                <h1 className='text-center'>SignUp</h1>
+                <h1 className='text-center'>SignUp </h1>
 
                 <div>
                     <label className='form-label' htmlFor="username" >Username</label>
