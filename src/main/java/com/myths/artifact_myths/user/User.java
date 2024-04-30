@@ -28,7 +28,7 @@ public class User {
    
     }
 
-    public String getusername() {
+    public String getUsername() {
         return username;
     }
 
@@ -46,7 +46,7 @@ public class User {
 
  
 
-    public void setusername(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
@@ -73,4 +73,6 @@ public class User {
                 ", id=" + id +
                 '}';
     }
+
+    
 }
