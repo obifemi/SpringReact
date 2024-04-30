@@ -22,12 +22,13 @@ const SignUp = () => {
         .then((res) => {
             
             setApiProcess(false);
-            setResponse(res.data.message);
-            console.log("response: " + res.data.message);
-        }).catch((err) => {
-            console.log('Error: ' +err);
-            setApiProcess(true);
-        });
+            setResponse(false)
+        }).catch(axiosError => {
+            setApiProcess(false);
+            console.log(axiosError.response.data.message);
+            setResponse(axiosError.response.data.message);
+        }    
+        )
     }
 
 
@@ -42,8 +43,10 @@ const SignUp = () => {
 
                 <div>
                     <label className='form-label' htmlFor="username" >Username</label>
-                    <input className='form-control' onChange={(e) => setUsername(e.target.value)} id='username' />
+                    <input className={`form-control ${response ? 'is-invalid' : ''}`} onChange={(e) => setUsername(e.target.value)} id='username' />
+                    <p className='text-danger'>{response}</p>
                 </div>
+
 
                 <div>
                     <label className='form-label' htmlFor="email">E-Mail</label>
