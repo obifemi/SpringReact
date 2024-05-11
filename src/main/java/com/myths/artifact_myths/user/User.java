@@ -5,17 +5,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity()
 @Table(name = "users")
 public class User {
+    @NotBlank
     private String username;
+    @NotBlank
     private String email;
     private String password;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
 
     public User() {
     }
@@ -25,7 +27,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.id = id;
-   
+
     }
 
     public String getUsername() {
@@ -44,8 +46,6 @@ public class User {
         return id;
     }
 
- 
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -62,8 +62,6 @@ public class User {
         this.id = id;
     }
 
-
-
     @Override
     public String toString() {
         return "User{" +
@@ -74,5 +72,4 @@ public class User {
                 '}';
     }
 
-    
 }
