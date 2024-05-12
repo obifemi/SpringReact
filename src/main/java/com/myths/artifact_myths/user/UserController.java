@@ -16,6 +16,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
 
 @RestController
 public class UserController {
@@ -24,24 +26,14 @@ public class UserController {
     UserService userService;
 
     @PostMapping("api/v1/user")
-    ResponseEntity<?> createUser(@Valid @RequestBody User user) {
-        if (user == null || user.getUsername() == null || user.getUsername().isEmpty()) {
-            ApiError error = new ApiError();
-            error.setMessage("Username is required");
-            error.setStatus(400);
-
-            Map<String, String> validationErrors = new HashMap<>();
-            validationErrors.put("username", "Username is required");
-            error.setErrors(validationErrors);
-            return ResponseEntity.badRequest().body(error);
-
-        }
+    GenericMessage createUser(@Valid @RequestBody User user) {
 
         userService.createUser(user);
-        return ResponseEntity.ok(new GenericMessage("User is created successfully"));
+        return new GenericMessage("User is created successfully");
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     ApiError handleValidationException(MethodArgumentNotValidException exception) {
         ApiError ApiError = new ApiError();
         ApiError.setMessage("Validation failed");
