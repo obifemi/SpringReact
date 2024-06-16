@@ -1,7 +1,8 @@
 package com.myths.artifact_myths.user;
 
-import com.myths.artifact_myths.user.validation.UniqueEmail;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,12 +16,31 @@ public class User {
     @NotBlank(message = "{app.name.notblank.message}")
     private String username;
     @NotBlank
-    @UniqueEmail
     private String email;
     private String password;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    boolean active = false;
+
+    String activationToken = null;
+
+    public String getActivationToken() {
+        return activationToken;
+    }
+
+    public void setActivationToken(String activationToken) {
+        this.activationToken = activationToken;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     public User() {
     }

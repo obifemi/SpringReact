@@ -1,5 +1,7 @@
 package com.myths.artifact_myths.user;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +19,7 @@ public class UserService {
     public void createUser(User user) {
         try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setActivationToken(UUID.randomUUID().toString());
             userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
             throw new NotUniqueEmailException("Email already exists");
