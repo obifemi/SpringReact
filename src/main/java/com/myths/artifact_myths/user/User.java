@@ -1,5 +1,7 @@
 package com.myths.artifact_myths.user;
 
+import com.myths.artifact_myths.user.validation.UniqueEmail;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,11 +10,12 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity()
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = { @jakarta.persistence.UniqueConstraint(columnNames = "email") })
 public class User {
-    @NotBlank
+    @NotBlank(message = "{app.name.notblank.message}")
     private String username;
     @NotBlank
+    @UniqueEmail
     private String email;
     private String password;
     @Id

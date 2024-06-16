@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +43,18 @@ public class UserController {
             validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
         });
 
+        ApiError.setErrors(validationErrors);
+        return ApiError;
+    }
+
+    @ExceptionHandler(NotUniqueEmailException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ApiError handleNotUniqueError(NotUniqueEmailException exception) {
+        ApiError ApiError = new ApiError();
+        ApiError.setMessage("Validation failed");
+        ApiError.setStatus(400);
+        Map<String, String> validationErrors = new HashMap<>();
+        validationErrors.put("email", "Email already exists");
         ApiError.setErrors(validationErrors);
         return ApiError;
     }
